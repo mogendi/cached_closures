@@ -23,7 +23,7 @@ V: Copy
         }
     }
 
-    fn value(&mut self, x: U) -> V {
+    fn execute(&mut self, x: U) -> V {
         match self.value.get(&x) {
             Some(y) => *y,
             None => {
@@ -35,14 +35,18 @@ V: Copy
     }
 }
 
-#[test]
-#[allow(unused)]
-fn multivalue(){
-    let mut c = Cacher::new(|x| x);
-    let a = Cacher::value(&mut c, 1);
-    let b = Cacher::value(&mut c, 2);
-    assert_eq!(b, 2);
-    assert_eq!(a, 1);
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn multivalue(){
 
-fn main(){}
+        let mut c = Cacher::new(|x| x);
+        let a = c.execute(1);
+        let b = c.execute(2);
+        let d = c.execute(2);
+        assert_eq!(b, 2);
+        assert_eq!(a, 1);
+        assert_eq!(d, 2);
+    }
+}

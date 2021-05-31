@@ -1,5 +1,5 @@
 [package]
-name = "cwhm"
+name = "cached_closures"
 version = "0.1.0"
 authors = ["mogendi <mogendi.mongare@gmail.com>"]
 edition = "2018"
